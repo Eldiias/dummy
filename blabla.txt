@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 Added 1 word lets deleted some words
 added 1 line
+=======
+lets I deleted some words
+I add a line
+>>>>>>> c9b164d1deee4ef4a0f4ace43907e274e03473b1
