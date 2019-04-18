@@ -19,6 +19,6 @@ But first we will start with sove advices:
 
 
 
-##Code etiquette [+ Zen of Python]
+## Code etiquette [+ Zen of Python]
 
 1. 
