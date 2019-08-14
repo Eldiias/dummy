@@ -4,7 +4,7 @@ Writing a code is a useful skill once obtained and never lost. And more you code
 
 Every additional line of code can make you train your skills. But it doesn't mean you are actually learning something new. So, even after 10 years of coding, you might still be on the baseline. What does actually define your growth as programmist? Only ***your** code* represents you. And if you don't follow **code etiquette**, you will not be appriciated.
 
-But first we will start with sove advices:
+First let's start with sove advices:
 
 ## 8 rules 
 
