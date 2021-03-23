@@ -16,7 +16,16 @@ def get_image_from_web(x:str):
 
 
 def get_image_standard_size(x:str)-> np.array:
-    return np.array(Image.open(x).resize((640,480),Image.ANTIALIAS).filter(ImageFilter.MedianFilter(size=7)))
+    return np.array(Image.open(x).resize((1024,768),Image.ANTIALIAS).filter(ImageFilter.MedianFilter(size=7)))
+
+def fig2img(fig):
+    """Convert a Matplotlib figure to a PIL Image and return it"""
+    import io
+    buf = io.BytesIO()
+    fig.savefig(buf)
+    buf.seek(0)
+    img = Image.open(buf)
+    return img
 
 def get_new_image(arr:np.array, n:int)->np.array:
     mkm=MiniBatchKMeans(n_clusters=n)
@@ -38,7 +47,7 @@ def get_new_image(arr:np.array, n:int)->np.array:
 
 
 
-    _, [ax1,ax2,ax3]=plt.subplots(3,1,sharex=True, figsize=(80,36))
+    _, [ax1,ax2,ax3]=plt.subplots(3,1,sharex=True, figsize=(80,40))
 
     plt.axis('off')
     ax3.imshow(border, cmap='gray')
@@ -51,13 +60,15 @@ def get_new_image(arr:np.array, n:int)->np.array:
     ax1.set_title('Original image')
     ax1.axis('off')
     plt.show()
+
+    fig2img(_).show()
     
     return img_compressed, labels, values, border
 
 if __name__=='__main__':
     url=input('Pass the full path to the image or the url please \t')
     if url=='': url=r'C:\Users\eldii\Pictures\pics/'+np.random.choice(os.listdir(r'C:\Users\eldii\Pictures\pics'))
-    print(url)
+    #print(url)
     n=int(input('How many colors you want to use? \t'))
     i,l,v,b=get_new_image(
         get_image_from_web(url) if url.startswith('http') else get_image_standard_size(url),
