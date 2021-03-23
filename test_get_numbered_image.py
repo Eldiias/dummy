@@ -5,14 +5,15 @@ from PIL import Image, ImageFilter
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 from sklearn.cluster import MiniBatchKMeans
+from mpl_toolkits.axes_grid1 import ImageGrid
 
 
 def get_image_from_web(x:str):
     image=r.get(x).content
     last=len(os.listdir(r'./Pictures\pics'))
-    with open(r'./Pictures\pics/'+str(last+1)+'.png','wb') as file:
+    with open(r'./Pictures\pics/'+str(last+2)+'.png','wb') as file:
         file.write(image)
-    return get_image_standard_size(r'./Pictures\pics/'+str(last+1)+'.png')
+    return get_image_standard_size(r'./Pictures\pics/'+str(last+2)+'.png')
 
 
 def get_image_standard_size(x:str)-> np.array:
@@ -47,21 +48,18 @@ def get_new_image(arr:np.array, n:int)->np.array:
 
 
 
-    _, [ax1,ax2,ax3]=plt.subplots(3,1,sharex=True, figsize=(80,40))
-
-    plt.axis('off')
-    ax3.imshow(border, cmap='gray')
-    ax3.set_title('borderline')
-    ax3.axis('off')
-    ax2.imshow(img_compressed.astype(np.uint8))
-    ax2.set_title(f'New image with {n} colors')
-    ax2.axis('off')
-    ax1.imshow(arr.astype(np.uint8))
-    ax1.set_title('Original image')
-    ax1.axis('off')
+    fig = plt.figure(1,(40,80))
+    grid = ImageGrid(fig, 111,
+                    nrows_ncols=(1,3),
+                    axes_pad=0.1,
+                    )
+    loi=[arr.astype(np.uint8), img_compressed.astype(np.uint8), border]
+    for i in range(3):
+        if i==2:
+            grid[i].imshow(loi[i],interpolation='none', cmap='gray')
+        else:
+            grid[i].imshow(loi[i],interpolation='none')
     plt.show()
-
-    fig2img(_).show()
     
     return img_compressed, labels, values, border
 
@@ -73,3 +71,4 @@ if __name__=='__main__':
     i,l,v,b=get_new_image(
         get_image_from_web(url) if url.startswith('http') else get_image_standard_size(url),
         n)
+    
