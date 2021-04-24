@@ -8,10 +8,10 @@ import dash_core_components as dcc
 import dash_html_components as html
 from collections import deque
 
-
+channel_name = 'kyle'
 app = dash.Dash(__name__)
 
-data = get_data('indiefoxx', get_counts = True, get_general_info=True, get_preview_image=True, get_stream_info=True)
+data = get_data(channel_name, get_counts = True, get_general_info=True, get_preview_image=True, get_stream_info=True)
 print(data)
 
 X = deque(maxlen=50)
@@ -37,7 +37,7 @@ app.layout = html.Div([
 def update_graph(n):
     graphs = []
 
-    upd = get_data('indiefoxx', get_counts = True)
+    upd = get_data(channel_name, get_counts = True)
     X.append(upd.index[-1])
     Y.append(upd.current_viewers.values[-1])
     data = go.Scatter(
